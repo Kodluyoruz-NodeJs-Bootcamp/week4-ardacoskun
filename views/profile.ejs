@@ -1,0 +1,61 @@
+<%- include('partials/_header') -%>
+<body class="dashboard">
+ 
+  <nav class="navbar navbar-dark bg-blue">
+    <h2 class="nav-brand">GustoTeam</h2>
+    <div class="navbar-nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#" class="nav-link">Update</a>
+        </li>
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="/logout" class="nav-link">LogOut</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+   
+<div class="content profile-body">
+
+
+
+        <div class="profile-container">
+          <div class="avatar-container">  
+            <img src="/img/gusto_logo.jpg" alt="gusto" class="avatar-image" />
+          </div>
+          <div class="info-container">
+            <h1 class="user-title"><%=user.firstName %> <%=user.lastName %></h1>
+            <h3 class="user-username">@<%=user.userName %></h3>
+            <h4 class="user-isAdmin">Admin: <%= user.isAdmin %></h4>
+            <h4 class="user-createdAt">CreatedAt: <%= user.createdAt %></h4>
+
+
+          </div>
+          
+        </div>
+    
+  </div>
+
+
+  <script>
+
+    const navbar=document.querySelector(".nav-brand");
+ 
+    navbar.addEventListener("click",()=>{
+ 
+     location.assign("/");
+ 
+ 
+    });
+ 
+ 
+  </script>
+
+   
+</body>
+</html>

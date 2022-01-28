@@ -1,0 +1,61 @@
+<%-include('partials/_header') -%>
+  <body class="dashboard">
+    <nav class="navbar navbar-dark bg-blue">
+      <h2 class="nav-brand">GustoTeam</h2>
+      <div class="navbar-nav">
+        <ul class="nav-list">
+         
+          <li class="nav-item">
+            <a href="/profile" class="nav-link">Profile</a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">LogOut</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content">
+      <table class="table">
+        
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Created</th>
+            <th scope="col">Admin</th>
+            <th scope="col">UserName</th>
+          </tr>
+        </thead>
+        <tbody>
+  
+          <% for(let i=0;i< users.length;i++){ %>
+  
+              <tr>
+                  <td scope="row"><%= users[i].firstName %> <%= users[i].lastName %></td>
+                  <td><%=users[i].createdAt  %></td>
+                  <td><%= users[i].isAdmin %></td>
+                  <td>@<%= users[i].userName %></td>
+                </tr>
+  
+          <% } %>
+    
+      
+        </tbody>
+      </table>
+    </div>
+ <script>
+
+   const navbar=document.querySelector(".nav-brand");
+
+   navbar.addEventListener("click",()=>{
+
+    location.assign("/");
+
+
+   });
+
+
+ </script>
+   
+  </body>
+</html>

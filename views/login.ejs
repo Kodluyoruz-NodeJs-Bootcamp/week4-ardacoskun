@@ -1,0 +1,29 @@
+<%- include('partials/_header') -%>
+<body class="login-body">
+    <form method="POST" action="/login" class="form-login">
+        <div class="title">Sign In</div>
+        <div class="input-container ic1">
+          <input name="userName" class="input" type="text" placeholder=" " required/>
+          <div class="cut "></div>
+          <label for="userName" class="placeholder">Username</label>
+          <div class="username-error"></div>
+        </div>
+        <div class="input-container ic2">
+            <input name="password" class="input" type="password" placeholder=" " required/>
+            <div class="cut "></div>
+            <label for="password" class="placeholder">Password</label>
+            <div class="password-error"></div>
+        </div>
+        <% if(locals.error) { %>
+          <div class="error-message">
+                <%=error %>
+          </div>
+          <% } %>
+        
+        <button type="submit" class="submit">Sign In</button>
+        <div class="toLogin">
+          <p>If you don't have an account ? <a href="/register" class="to">Sign Up</a></p>
+        </div>
+      </form>
+  </body>
+</html>
