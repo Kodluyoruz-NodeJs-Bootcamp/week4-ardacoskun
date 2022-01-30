@@ -20,19 +20,24 @@
   </nav>
 
    
-<div class="content profile-body">
+<div class="profile-body">
 
 
 
         <div class="profile-container">
-          <div class="avatar-container">  
-            <img src="/img/gusto_logo.jpg" alt="gusto" class="avatar-image" />
+          <div class="avatar-container">
+            <% if(user.avatar){ %>
+            <img src="data:image/png;base64,<%=user.avatar %>"  alt="avatar" class="profile-avatar-image" />
+            <%} else{ %>
+            
+              <img src="/img/gusto_logo.jpg" alt="gusto" class="avatar-image" />
+              <%} %>
           </div>
           <div class="info-container">
-            <h1 class="user-title"><%=user.firstName %> <%=user.lastName %></h1>
-            <h3 class="user-username">@<%=user.userName %></h3>
-            <h4 class="user-isAdmin">Admin: <%= user.isAdmin %></h4>
-            <h4 class="user-createdAt">CreatedAt: <%= user.createdAt %></h4>
+            <h1 class="profile-title"><%=user.firstName %> <%=user.lastName %></h1>
+            <h3 class="profile-username">@<%=user.userName %></h3>
+            <h4 class="profile-isAdmin">Admin: <%= user.isAdmin %></h4>
+            <h4 class="profile-createdAt">CreatedAt: <%= user.createdAt %></h4>
 
 
           </div>

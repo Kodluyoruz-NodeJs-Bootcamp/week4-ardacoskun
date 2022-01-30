@@ -185,14 +185,6 @@
 
 /* ------- */
 
-.userlist-body {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #25325c;
-}
-
 .profile-body {
   display: flex;
   align-items: center;
@@ -377,39 +369,29 @@ a {
   justify-content: center;
 }
 
-.info-container {
-  background-color: #f45d48;
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.user-title {
+.profile-title {
   color: #303245;
   margin-left: 10px;
   margin-bottom: 20px;
 }
-.user-username {
+.profile-username {
   color: #eee;
   margin-left: 10px;
   margin-bottom: 20px;
 }
 
-.user-isAdmin {
+.profile-isAdmin {
   color: #303245;
   margin-bottom: 20px;
 }
 
-.user-createdAt {
+.profile-createdAt {
   color: #fff;
 }
 
-.avatar-image {
-  width: 100px;
-  height: 100px;
+.profile-avatar-image {
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   border: 1px solid #0088dd;
 }
@@ -449,9 +431,6 @@ a {
 
 .update-body {
   background: #f45d48;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .upload-container {
@@ -460,36 +439,277 @@ a {
 
 .form-control:focus {
   box-shadow: none;
-  border-color: #ba68c8;
+  border-color: #f45d48;
 }
 
 .profile-button {
-  background: rgb(99, 39, 120);
+  background: #f45d48;
   box-shadow: none;
   border: none;
 }
 
 .profile-button:hover {
-  background: #682773;
+  background: #f45d48;
 }
 
 .profile-button:focus {
-  background: #682773;
+  background: #f45d48;
   box-shadow: none;
 }
 
 .profile-button:active {
-  background: #682773;
+  background: #f45d48;
   box-shadow: none;
 }
 
 .back:hover {
-  color: #682773;
+  color: #f45d48;
   cursor: pointer;
 }
 
 .labels {
-  font-size: 11px;
+  font-size: 14px;
 }
 
 /* #f45d48 #15172b */
+
+.container {
+  max-width: 1100px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+.panel {
+  margin: 100px auto 40px;
+  max-width: 500px;
+  text-align: center;
+}
+.button_outer {
+  background: #f45d48;
+  border-radius: 30px;
+  text-align: center;
+  height: 50px;
+  width: 200px;
+  display: inline-block;
+  transition: 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn_upload {
+  padding: 17px 30px 12px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  z-index: 3;
+  white-space: nowrap;
+}
+.btn_upload input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 105%;
+  cursor: pointer;
+  opacity: 0;
+}
+.file_uploading {
+  width: 100%;
+  height: 10px;
+  margin-top: 20px;
+  background: #ccc;
+}
+.file_uploading .btn_upload {
+  display: none;
+}
+.processing_bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  border-radius: 30px;
+  background: #f45d48;
+  transition: 3s;
+}
+.file_uploading .processing_bar {
+  width: 100%;
+}
+.success_box {
+  display: none;
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+.success_box:before {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 25px;
+  border-bottom: 6px solid #fff;
+  border-right: 6px solid #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  left: 17px;
+  top: 10px;
+}
+.file_uploaded .success_box {
+  display: inline-block;
+}
+.file_uploaded {
+  margin-top: 0;
+  width: 50px;
+  background: #f45d48;
+  height: 50px;
+}
+.uploaded_file_view {
+  max-width: 300px;
+  margin: 40px auto;
+  text-align: center;
+  position: relative;
+  transition: 0.2s;
+  opacity: 0;
+  border: 2px solid #ddd;
+  padding: 15px;
+}
+.file_remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  background: #aaa;
+  line-height: 30px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  right: -15px;
+  top: -15px;
+}
+.file_remove:hover {
+  background: #222;
+  transition: 0.2s;
+}
+.uploaded_file_view img {
+  max-width: 100%;
+}
+.uploaded_file_view.show {
+  opacity: 1;
+}
+.error_msg {
+  text-align: center;
+  color: #dc3545;
+}
+
+.update-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  margin-left: 20px;
+}
+
+.btn-danger:hover {
+  background-color: #96222e;
+}
+
+.btn-secondary {
+  background-color: #25325c;
+  color: #fff;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.btn-secondary:hover {
+  background-color: #121c3d;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #be4332;
+}
+
+/* ------DENEME DASHBOARD */
+
+.userlist-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+  background-color: #25325c;
+}
+
+.bg_color {
+  background-color: #25325c;
+}
+
+.profile-list {
+  list-style-type: none;
+}
+
+.dashboard-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #fff;
+  border: 2px solid;
+  border-radius: 7px;
+  width: 450px;
+  height: 200px;
+  cursor: pointer;
+}
+.dashboard-container:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.05);
+}
+
+.info-container {
+  background-color: #f45d48;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.user-title,
+.user-username {
+  color: #eee;
+  margin-left: 10px;
+}
+
+.user-isAdmin {
+  color: #303245;
+}
+
+.avatar-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid #0088dd;
+}
+
+.nav_bottom {
+  margin-bottom: 20px;
+}
+
+.space {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.text-right {
+  font-size: 25px;
+  color: #15172b;
+}
