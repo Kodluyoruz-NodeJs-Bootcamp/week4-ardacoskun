@@ -4,6 +4,7 @@ import {
   createUser,
   login,
   userUpdate,
+  upload,
 } from "../controllers/user.controller";
 import { auth } from "../middleware/auth";
 
@@ -13,7 +14,7 @@ router.get("/users", auth, getUsers);
 
 router.post("/register", createUser);
 
-router.post("/update", userUpdate);
+router.post("/update", upload.single("avatar"), userUpdate);
 
 router.post("/login", login);
 

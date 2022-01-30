@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt, { hash } from "bcrypt";
+import multer from "multer";
 
 //Get All users function.It uses at home page.
 export const getUsers = async (req: Request, res: Response) => {
@@ -35,12 +36,25 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+//Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files.
+
+export const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 1000000,
+  },
+});
+
 //User profile update
 export const userUpdate = async (req: Request, res: Response) => {
   const id = req.session.userId;
 
   const { firstName, lastName, password, userName } = req.body;
 
+  //Convert buffer to base64 string
+  const image = req.file?.buffer.toString("base64");
+
+  //Hash updated password
   const hashedPassword = await bcrypt.hash(password, 8);
 
   try {
@@ -50,6 +64,7 @@ export const userUpdate = async (req: Request, res: Response) => {
       lastName,
       userName,
       password: hashedPassword,
+      avatar: image,
     });
     res.redirect("/profile");
   } catch (error: any) {
