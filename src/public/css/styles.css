@@ -444,3 +444,52 @@ a {
 .error-header {
   color: red;
 }
+
+/* Update Css */
+
+.update-body {
+  background: #f45d48;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-container {
+  width: 1000px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ba68c8;
+}
+
+.profile-button {
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none;
+}
+
+.profile-button:hover {
+  background: #682773;
+}
+
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none;
+}
+
+.profile-button:active {
+  background: #682773;
+  box-shadow: none;
+}
+
+.back:hover {
+  color: #682773;
+  cursor: pointer;
+}
+
+.labels {
+  font-size: 11px;
+}
+
+/* #f45d48 #15172b */

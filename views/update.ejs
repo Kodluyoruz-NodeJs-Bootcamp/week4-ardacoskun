@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet"
+    href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="update-body">
+    <div class="update-container">
+      <div class="upload-container rounded bg-white mt-5 mb-5">
+        <form method="POST" action="/update" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-3 border-right">
+              <div class="main_full">
+                <div class="container">
+                  <div class="panel">
+                    <div class="button_outer">
+                      <div class="btn_upload">
+                        <input
+                          type="file"
+                          id="upload_file"
+                          name="avatar"
+                          value=""
+                        />
+
+                        Select Image
+                      </div>
+                      <div class="processing_bar"></div>
+                      <div class="success_box"></div>
+                    </div>
+                  </div>
+                  <div class="error_msg"></div>
+                  <div class="uploaded_file_view" id="uploaded_view">
+                    <span class="file_remove">X</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="p-2 py-5">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-md-6">
+                    <label class="labels">First Name</label
+                    ><input
+                      type="text"
+                      name="firstName"
+                      class="form-control"
+                      value="<%=user.firstName %>"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="labels">Last Name</label
+                    ><input
+                      type="text"
+                      name="lastName"
+                      class="form-control"
+                      value="<%=user.lastName %>"
+                    />
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label class="labels">Username</label
+                    ><input
+                      type="text"
+                      name="userName"
+                      class="form-control"
+                      value="<%=user.userName %>"
+                    />
+                  </div>
+                  <div class="col-md-12">
+                    <label class="labels">Password</label
+                    ><input
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      value="<%=user.password %>"
+                    />
+                  </div>
+
+                  <% if(locals.error) { %>
+                  <div class="error-message"><%=error %></div>
+                  <% } %>
+                </div>
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit">
+                    Save
+                  </button>
+
+                  <a href="/" class="btn btn-secondary profile-button">
+                    Back to Home
+                  </a>
+                  <a href="/delete" class="btn btn-danger profile-button">
+                    Delete Account
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var btnUpload = $("#upload_file"),
+        btnOuter = $(".button_outer");
+      btnUpload.on("change", function (e) {
+        var ext = btnUpload.val().split(".").pop().toLowerCase();
+        if ($.inArray(ext, ["gif", "png", "jpg", "jpeg"]) == -1) {
+          $(".error_msg").text("Not an Image...");
+        } else {
+          $(".error_msg").text("");
+          btnOuter.addClass("file_uploading");
+          setTimeout(function () {
+            btnOuter.addClass("file_uploaded");
+          }, 3000);
+          var uploadedFile = URL.createObjectURL(e.target.files[0]);
+          setTimeout(function () {
+            $("#uploaded_view")
+              .append('<img src="' + uploadedFile + '" />')
+              .addClass("show");
+          }, 3500);
+        }
+      });
+      $(".file_remove").on("click", function (e) {
+        $("#uploaded_view").removeClass("show");
+        $("#uploaded_view").find("img").remove();
+        btnOuter.removeClass("file_uploading");
+        btnOuter.removeClass("file_uploaded");
+      });
+    </script>
+  </body>
+</html>

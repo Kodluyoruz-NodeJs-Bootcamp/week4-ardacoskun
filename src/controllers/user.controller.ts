@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
+import bcrypt, { hash } from "bcrypt";
 
 //Get All users function.It uses at home page.
 export const getUsers = async (req: Request, res: Response) => {
@@ -31,6 +32,32 @@ export const createUser = async (req: Request, res: Response) => {
     return res.render("register", {
       error,
     });
+  }
+};
+
+//User profile update
+export const userUpdate = async (req: Request, res: Response) => {
+  const id = req.session.userId;
+
+  const { firstName, lastName, password, userName } = req.body;
+
+  const hashedPassword = await bcrypt.hash(password, 8);
+
+  try {
+    const userRepository = getRepository(User);
+    const updatedUser = await userRepository.update(id, {
+      firstName,
+      lastName,
+      userName,
+      password: hashedPassword,
+    });
+    res.redirect("/profile");
+  } catch (error: any) {
+    if (error.message.includes("R_DUP_ENTRY: Duplicate entry")) {
+      return res.render("update", { error: "Username already be taken! " });
+    } else {
+      return res.render("update", { error });
+    }
   }
 };
 

@@ -37,6 +37,9 @@ export class User {
   @Column({ default: formatDate() })
   createdAt: string;
 
+  @Column({ default: null, type: "longtext" })
+  avatar: string;
+
   //Password hashing function it calls when user signing up.
   async hashPassword() {
     try {
