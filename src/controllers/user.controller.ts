@@ -50,12 +50,14 @@ export const userUpdate = async (req: Request, res: Response) => {
   const id = req.session.userId;
 
   const { firstName, lastName, password, userName } = req.body;
+  console.log("password", password);
 
   //Convert buffer to base64 string
   const image = req.file?.buffer.toString("base64");
 
   //Hash updated password
   const hashedPassword = await bcrypt.hash(password, 8);
+  console.log("hash", hashedPassword);
 
   try {
     const userRepository = getRepository(User);
