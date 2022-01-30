@@ -11,7 +11,7 @@ import { createConnection } from "typeorm";
 
 dotenv.config();
 
-var MemoryStore = require("memorystore")(session);
+//var MemoryStore = require("memorystore")(session);
 
 const app = express();
 createConnection();
@@ -22,9 +22,10 @@ app.use(
   session({
     secret: "keyboard cat",
     resave: false,
-    store: new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
-    }),
+    cookie: { maxAge: 86400000 },
+    // store: new MemoryStore({
+    //   checkPeriod: 86400000, // prune expired entries every 24h
+    // }),
     saveUninitialized: true,
   })
 );

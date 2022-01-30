@@ -39,7 +39,7 @@ export const createUser = async (req: Request, res: Response) => {
 //Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files.
 
 export const upload = multer({
-  storage: multer.memoryStorage(),
+  //storage: multer.memoryStorage(),
   limits: {
     fileSize: 1000000,
   },
