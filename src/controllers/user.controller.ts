@@ -61,12 +61,27 @@ export const userUpdate = async (req: Request, res: Response) => {
     const userRepository = getRepository(User);
 
     //If user does not update image,db continues to keep old one.
-    if (image === undefined) {
+    //This pile is used for prevent null password and image saves to db
+
+    if (image === undefined && password === "") {
+      const updatedUser = await userRepository.update(id, {
+        firstName,
+        lastName,
+        userName,
+      });
+    } else if (image === undefined && password) {
       const updatedUser = await userRepository.update(id, {
         firstName,
         lastName,
         userName,
         password: hashedPassword,
+      });
+    } else if (image && password === "") {
+      const updatedUser = await userRepository.update(id, {
+        firstName,
+        lastName,
+        userName,
+        avatar: image,
       });
     } else {
       const updatedUser = await userRepository.update(id, {

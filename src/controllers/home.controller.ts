@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
-import bcrypt from "bcrypt";
 
 //Render register page
 export const getRegister = (req: Request, res: Response) => {
