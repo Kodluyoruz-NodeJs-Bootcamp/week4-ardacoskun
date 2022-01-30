@@ -50,24 +50,34 @@ export const userUpdate = async (req: Request, res: Response) => {
   const id = req.session.userId;
 
   const { firstName, lastName, password, userName } = req.body;
-  console.log("password", password);
 
   //Convert buffer to base64 string
   const image = req.file?.buffer.toString("base64");
 
   //Hash updated password
   const hashedPassword = await bcrypt.hash(password, 8);
-  console.log("hash", hashedPassword);
 
   try {
     const userRepository = getRepository(User);
-    const updatedUser = await userRepository.update(id, {
-      firstName,
-      lastName,
-      userName,
-      password: hashedPassword,
-      avatar: image,
-    });
+
+    //If user does not update image,db continues to keep old one.
+    if (image === undefined) {
+      const updatedUser = await userRepository.update(id, {
+        firstName,
+        lastName,
+        userName,
+        password: hashedPassword,
+      });
+    } else {
+      const updatedUser = await userRepository.update(id, {
+        firstName,
+        lastName,
+        userName,
+        password: hashedPassword,
+        avatar: image,
+      });
+    }
+
     res.redirect("/profile");
   } catch (error: any) {
     if (error.message.includes("R_DUP_ENTRY: Duplicate entry")) {
@@ -112,7 +122,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const logout = async (req: Request, res: Response) => {
-  //Cleaning cookies
+  //Clear cookies
   res.cookie("jwt", "", { maxAge: 1 });
   res.cookie("connect.sid", "", { maxAge: 1 });
 
@@ -121,4 +131,28 @@ export const logout = async (req: Request, res: Response) => {
 
   //Redirect user to home page but can not see dashboard because it does not authenticate so user redirect  to login page finally.
   res.status(500).redirect("/");
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const userRepository = getRepository(User);
+    const user = await userRepository.findOne({ id: req.session.userId });
+
+    if (!user) {
+      throw "User is not found.";
+    }
+    //Delete current user account
+    await userRepository.delete(user);
+
+    //Clear cookies
+    res.cookie("jwt", "", { maxAge: 1 });
+    res.cookie("connect.sid", "", { maxAge: 1 });
+
+    //Destroy session
+    req.session.destroy;
+
+    return res.status(200).redirect("/register");
+  } catch (error) {
+    return res.status(500);
+  }
 };

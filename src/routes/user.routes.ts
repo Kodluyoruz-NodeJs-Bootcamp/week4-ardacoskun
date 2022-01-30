@@ -5,6 +5,7 @@ import {
   login,
   userUpdate,
   upload,
+  deleteUser,
 } from "../controllers/user.controller";
 import { auth } from "../middleware/auth";
 
@@ -17,5 +18,7 @@ router.post("/register", createUser);
 router.post("/update", upload.single("avatar"), userUpdate);
 
 router.post("/login", login);
+
+router.get("/delete", auth, deleteUser);
 
 export default router;
